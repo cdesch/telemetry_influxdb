@@ -21,11 +21,11 @@ start_influx_v1: stop_influx_v1
 	-e INFLUXDB_ADMIN_USER=${USERNAME} \
 	-e INFLUXDB_ADMIN_PASSWORD=${PASSWORD} \
 	-v ${PWD}/influxdb-meta.conf:/etc/influxdb/influxdb-meta.conf \
-	--name=${CONTAINER_NAME_V1} influxdb -config /etc/influxdb/influxdb-meta.conf
+	--name=${CONTAINER_NAME_V1} influxdb:1.8 -config /etc/influxdb/influxdb-meta.conf
 
 start_influx_v2: stop_influx_v2
 	docker run -tid -p 9999:8086 \
-	--name=${CONTAINER_NAME_V2} quay.io/influxdb/influxdb:2.0.0-rc
+	--name=${CONTAINER_NAME_V2} influxdb:2.1
 
 wait_for_influx: wait_for_influx_v1 provision_influx_v2
 
